@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HoloLearn - Mixed Reality AI Teacher</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #f72585;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4cc9f0;
+            --warning: #f9c74f;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+        }
+
+        body {
+            background-color: #f5f7fb;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 6px rgba(67, 97, 238, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .btn-primary:active {
+            transform: translateY(-1px);
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .btn-secondary:hover {
+            background: var(--light);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            color: var(--secondary);
+            border-color: var(--secondary);
+        }
+
+        .btn-secondary:active {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .btn-social {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: white;
+            color: var(--dark);
+            border: 1px solid var(--light-gray);
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-social:hover {
+            background: var(--light);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .btn-social:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto 50px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        /* Header Styles */
+        header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-img {
+            height: 50px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-img:hover {
+            transform: rotate(5deg) scale(1.05);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary);
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.2rem;
+            margin-bottom: 20px;
+            color: var(--secondary);
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            color: var(--gray);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        .hero-features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .hero-feature {
+            padding: 30px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .hero-feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .hero-feature i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .hero-feature:hover i {
+            color: var(--accent);
+            transform: scale(1.1);
+        }
+
+        .hero-feature h3 {
+            margin-bottom: 15px;
+            color: var(--dark);
+            transition: color 0.3s ease;
+        }
+
+        .hero-feature:hover h3 {
+            color: var(--primary);
+        }
+
+        /* Features Section */
+        .features {
+            background: white;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 30px 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: var(--primary);
+            font-size: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        /* How It Works Section */
+        .how-it-works {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .step {
+            text-align: center;
+            padding: 30px 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .step:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin: 0 auto 20px;
+            transition: all 0.3s ease;
+        }
+
+        .step:hover .step-number {
+            background: var(--accent);
+            transform: scale(1.1);
+        }
+
+        /* Contact Section */
+        .contact {
+            background: white;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-detail {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-detail:hover {
+            background: var(--light);
+            transform: translateX(5px);
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .contact-detail:hover .contact-icon {
+            background: var(--primary);
+            color: white;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 12px 15px;
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+            outline: none;
+        }
+
+        /* Login/Signup Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            transform: scale(0.9);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .modal.show .modal-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .modal-tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .modal-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            text-align: center;
+            flex: 1;
+            font-weight: 600;
+            color: var(--gray);
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .modal-tab:hover {
+            color: var(--primary);
+        }
+
+        .modal-tab.active {
+            color: var(--primary);
+            border-bottom: 3px solid var(--primary);
+        }
+
+        .modal-body {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .social-login {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        /* Chat Widget */
+        .chat-widget {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            cursor: pointer;
+            z-index: 99;
+            transition: all 0.3s ease;
+        }
+
+        .chat-widget:hover {
+            background: var(--secondary);
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        .chat-container {
+            display: none;
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 350px;
+            height: 450px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+            z-index: 100;
+            flex-direction: column;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .chat-container.show {
+            display: flex;
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .chat-header {
+            padding: 15px 20px;
+            background: var(--primary);
+            color: white;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .message {
+            padding: 10px 15px;
+            border-radius: 18px;
+            max-width: 80%;
+            transition: all 0.3s ease;
+        }
+
+        .message.bot {
+            background: var(--light);
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+            transform: translateX(-10px);
+            opacity: 0;
+        }
+
+        .message.bot.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .message.user {
+            background: var(--primary);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+            transform: translateX(10px);
+            opacity: 0;
+        }
+
+        .message.user.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .chat-input {
+            padding: 15px;
+            display: flex;
+            gap: 10px;
+            border-top: 1px solid var(--light-gray);
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid var(--light-gray);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .chat-input input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.2);
+            outline: none;
+        }
+
+        /* Learning Page */
+        .learning-container {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 30px;
+            min-height: 600px;
+            margin: 40px 0;
+        }
+
+        .sidebar {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .sidebar-title {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--secondary);
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .lesson-list {
+            list-style: none;
+        }
+
+        .lesson-item {
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .lesson-item:hover {
+            background: var(--light);
+            transform: translateX(5px);
+        }
+
+        .lesson-item.active {
+            background: var(--primary);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .content-area {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .content-header {
+            margin-bottom: 25px;
+        }
+
+        .content-title {
+            font-size: 1.8rem;
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+
+        .content-body {
+            line-height: 1.8;
+        }
+
+        .content-body h3 {
+            margin: 20px 0 10px;
+            color: var(--secondary);
+        }
+
+        .content-body p {
+            margin-bottom: 15px;
+            color: var(--gray);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #adb5bd;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #495057;
+            color: #adb5bd;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero-features,
+            .features-grid,
+            .process-steps,
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .learning-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .hero-features,
+            .features-grid,
+            .process-steps,
+            .contact-grid,
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .section {
+                padding: 60px 0;
+            }
+            
+            .chat-container {
+                width: 90%;
+                right: 5%;
+                bottom: 80px;
+            }
+            
+            .logo-container {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with Navigation -->
+    <header>
+        <div class="container">
+            <div class="navbar">
+                <div class="logo-container">
+                    <div class="logo">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>HoloLearn</span>
+                    </div>
+                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjUwIiB2aWV3Qm94PSIwIDAgMjAwIDUwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjUwIiByeD0iMTAiIGZpbGw9IiM0MzYxZWUiIGZpbGwtb3BhY2l0eT0iMC4xIi8+CjxwYXRoIGQ9Ik00NSA0MCBDNDUgMjAgNjUgMjAgNjUgNDAgTTY1IDI1IEM3NSAyNSA4NSAzNSA4NSAyNSBNODUgNDAgQzg1IDIwIDEwNSAyMCAxMDUgNDAgTTEwNSAyNSBDMTE1IDI1IDEyNSAzNSAxMjUgMjUgTTEyNSA0MCBDMTI1IDIwIDE0NSAyMCAxNDUgNDAgTTE0NSAyNSBDMTU1IDI1IDE2NSAzNSAxNjUgMjUiIHN0cm9rZT0iIzQzNjFlZSIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KPGNpcmNsZSBjeD0iMzUiIGN5PSIzMCIgcj0iNSIgZmlsbD0iIzQzNjFlZSIvPgo8Y2lyY2xlIGN4PSIxNjUiIGN5PSIzMCIgcj0iNSIgZmlsbD0iIzQzNjFlZSIvPgo8L3N2Zz4=" alt="HoloLearn Logo" class="logo-img">
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#learning">Start Learning</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <div class="auth-buttons">
+                    <button class="btn btn-secondary" onclick="openModal('login')">Login</button>
+                    <button class="btn btn-primary" onclick="openModal('signup')">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>Learn with Immersive Mixed Reality Experiences</h1>
+            <p>HoloLearn brings interactive 3D learning to your browser without any special hardware</p>
+            <div class="hero-buttons">
+                <a href="#learning" class="btn btn-primary">Start Learning</a>
+                <a href="#demo" class="btn btn-secondary">View Demo</a>
+            </div>
+            <div class="hero-features">
+                <div class="hero-feature">
+                    <i class="fas fa-globe"></i>
+                    <h3>Web-Based MR Experience</h3>
+                    <p>Runs on any laptop and browser without special hardware</p>
+                </div>
+                <div class="hero-feature">
+                    <i class="fas fa-robot"></i>
+                    <h3>AI-Powered Teaching</h3>
+                    <p>Interactive explanations and quizzes powered by AI</p>
+                </div>
+                <div class="hero-feature">
+                    <i class="fas fa-gem"></i>
+                    <h3>Rich 3D Visualizations</h3>
+                    <p>Explore complex concepts with detailed 3D models</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section features" id="features">
+        <div class="container">
+            <h2 class="section-title">What We Offer</h2>
+            <p class="section-subtitle">HoloLearn provides cutting-edge mixed reality education experiences</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <h3>AI Teacher</h3>
+                    <p>Your personal AI instructor explains concepts with voice and visual aids</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-cube"></i>
+                    </div>
+                    <h3>3D Models</h3>
+                    <p>Interact with detailed 3D models that you can rotate, zoom, and explore</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-microphone"></i>
+                    </div>
+                    <h3>Voice Interaction</h3>
+                    <p>Ask questions and get answers through natural voice conversations</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>Adaptive Learning</h3>
+                    <p>The system adjusts to your learning pace and style for optimal results</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <h3>Interactive Quizzes</h3>
+                    <p>Test your knowledge with engaging interactive assessments</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Multiple Subjects</h3>
+                    <p>Learn about various topics from science to history with rich visuals</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="section how-it-works" id="how-it-works">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <p class="section-subtitle">Getting started with HoloLearn is simple and straightforward</p>
+            
+            <div class="process-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Choose a Topic</h3>
+                    <p>Select from our library of interactive lessons</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>AI Explanation</h3>
+                    <p>The AI teacher explains concepts with 3D visuals</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Interact & Explore</h3>
+                    <p>Manipulate 3D models and ask questions</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Test Your Knowledge</h3>
+                    <p>Take quizzes to reinforce what you've learned</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Learning Page Section -->
+    <section class="section" id="learning">
+        <div class="container">
+            <h2 class="section-title">Start Learning</h2>
+            <p class="section-subtitle">Explore our interactive lessons on various topics</p>
+            
+            <div class="learning-container">
+                <div class="sidebar">
+                    <h3 class="sidebar-title">Lessons</h3>
+                    <ul class="lesson-list">
+                        <li class="lesson-item active" onclick="changeLesson('solar-system')">Solar System</li>
+                        <li class="lesson-item" onclick="changeLesson('heart')">Heart Anatomy</li>
+                        <li class="lesson-item" onclick="changeLesson('volcano')">Volcanoes</li>
+                        <li class="lesson-item" onclick="changeLesson('photosynthesis')">Photosynthesis</li>
+                        <li class="lesson-item" onclick="changeLesson('ancient-egypt')">Ancient Egypt</li>
+                    </ul>
+                </div>
+                
+                <div class="content-area">
+                    <div class="content-header">
+                        <h2 class="content-title">The Solar System</h2>
+                        <p>Explore our planetary neighborhood</p>
+                    </div>
+                    
+                    <div class="content-body">
+                        <h3>Overview</h3>
+                        <p>Our solar system consists of the sun and everything bound to it by gravity - the planets, moons, asteroids, comets, and other space objects.</p>
+                        
+                        <h3>Key Components</h3>
+                        <p>The solar system formed about 4.6 billion years ago from the gravitational collapse of a giant interstellar molecular cloud.</p>
+                        
+                        <h3>Interactive Experience</h3>
+                        <p>Use our 3D model to explore each planet, learn about their characteristics, and understand their orbits around the sun.</p>
+                        
+                        <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 20px 0;">
+                            <h3 style="color: var(--primary);">Try It Out</h3>
+                            <p>Click the button below to launch the interactive Solar System experience:</p>
+                            <button class="btn btn-primary" style="margin-top: 15px;">Launch Solar System</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <p class="section-subtitle">Have questions or want to learn more? Contact our team</p>
+            
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="contact-detail">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h3>Email Us</h3>
+                            <p>info.metascholar@gmail.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-detail">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div>
+                            <h3>Call Us</h3>
+                            <p>+91 6302958908</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-detail">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <h3></h3>
+                            <p></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h3>Send us a Message</h3>
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" placeholder="">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" placeholder="">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" rows="5" placeholder="Tell us what you're looking for..."></textarea>
+                    </div>
+                    
+                    <button class="btn btn-primary">Send Message</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login/Signup Modal -->
+    <div class="modal" id="auth-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">Login to Your Account</h2>
+            </div>
+            
+            <div class="modal-tabs">
+                <div class="modal-tab active" id="login-tab" onclick="switchTab('login')">Login</div>
+                <div class="modal-tab" id="signup-tab" onclick="switchTab('signup')">Sign Up</div>
+            </div>
+            
+            <div class="modal-body">
+                <div class="social-login">
+                    <button class="btn-social">
+                        <i class="fab fa-google"></i>
+                        Continue with Google
+                    </button>
+                    <button class="btn-social">
+                        <i class="fab fa-facebook"></i>
+                        Continue with Facebook
+                    </button>
+                </div>
+                
+                <div style="text-align: center; margin: 15px 0; position: relative;">
+                    <hr style="border: none; border-top: 1px solid var(--light-gray);">
+                    <span style="background: white; padding: 0 10px; position: absolute; top: -10px; left: 50%; transform: translateX(-50%); color: var(--gray);">or</span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="login-email">Email Address</label>
+                    <input type="email" id="login-email" placeholder="your@email.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" placeholder="Enter your password">
+                </div>
+                
+                <div id="signup-fields" style="display: none;">
+                    <div class="form-group">
+                        <label for="signup-name">Full Name</label>
+                        <input type="text" id="signup-name" placeholder="">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signup-confirm">Confirm Password</label>
+                        <input type="password" id="signup-confirm" placeholder="Confirm your password">
+                    </div>
+                </div>
+                
+                <button class="btn btn-primary" style="margin-top: 10px;" id="modal-action-btn">Login</button>
+                
+                <p style="text-align: center; margin-top: 15px; color: var(--gray);">
+                    <a href="#" style="color: var(--primary);">Forgot your password?</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat Widget -->
+    <div class="chat-widget" onclick="toggleChat()">
+        <i class="fas fa-comments"></i>
+    </div>
+    
+    <div class="chat-container" id="chat-window">
+        <div class="chat-header">
+            <h3>HoloLearn Assistant</h3>
+            <i class="fas fa-times" onclick="toggleChat()" style="cursor: pointer;"></i>
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            <div class="message bot show">
+                Hello! I'm your HoloLearn assistant. How can I help you today?
+            </div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="chat-input" placeholder="Type your question here...">
+            <button class="btn btn-primary" style="padding: 10px 15px;" onclick="sendMessage()">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>HoloLearn</h3>
+                    <p>Making mixed reality education accessible through browser-based AI teaching experiences.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#learning">Start Learning</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"></li>
+                        <li><a href="#"></a></li>
+                        <li><a href="#"></a></li>
+                        <li><a href="#"></a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"></a></li>
+                        <li><a href="#"></a></li>
+                        <li><a href="#"></a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2023 HoloLearn. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Modal functionality
+        function openModal(type) {
+            const modal = document.getElementById('auth-modal');
+            modal.style.display = 'flex';
+            setTimeout(() => {
+                modal.classList.add('show');
+            }, 10);
+            switchTab(type);
+        }
+        
+        function closeModal() {
+            const modal = document.getElementById('auth-modal');
+            modal.classList.remove('show');
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 300);
+        }
+        
+        function switchTab(type) {
+            const loginTab = document.getElementById('login-tab');
+            const signupTab = document.getElementById('signup-tab');
+            const signupFields = document.getElementById('signup-fields');
+            const modalTitle = document.getElementById('modal-title');
+            const actionBtn = document.getElementById('modal-action-btn');
+            
+            if (type === 'login') {
+                loginTab.classList.add('active');
+                signupTab.classList.remove('active');
+                signupFields.style.display = 'none';
+                modalTitle.textContent = 'Login to Your Account';
+                actionBtn.textContent = 'Login';
+            } else {
+                loginTab.classList.remove('active');
+                signupTab.classList.add('active');
+                signupFields.style.display = 'block';
+                modalTitle.textContent = 'Create an Account';
+                actionBtn.textContent = 'Sign Up';
+            }
+        }
+        
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('auth-modal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+        
+        // Chat functionality
+        function toggleChat() {
+            const chatWindow = document.getElementById('chat-window');
+            if (chatWindow.classList.contains('show')) {
+                chatWindow.classList.remove('show');
+                setTimeout(() => {
+                    chatWindow.style.display = 'none';
+                }, 300);
+            } else {
+                chatWindow.style.display = 'flex';
+                setTimeout(() => {
+                    chatWindow.classList.add('show');
+                }, 10);
+            }
+        }
+        
+        function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+            
+            if (message !== '') {
+                const chatMessages = document.getElementById('chat-messages');
+                
+                // Add user message
+                const userMessage = document.createElement('div');
+                userMessage.classList.add('message', 'user');
+                userMessage.textContent = message;
+                chatMessages.appendChild(userMessage);
+                
+                // Clear input
+                input.value = '';
+                
+                // Scroll to bottom
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                
+                // Show message with animation
+                setTimeout(() => {
+                    userMessage.classList.add('show');
+                }, 10);
+                
+                // Simulate bot response after a short delay
+                setTimeout(() => {
+                    const botMessage = document.createElement('div');
+                    botMessage.classList.add('message', 'bot');
+                    
+                    // Simple response logic
+                    if (message.toLowerCase().includes('hello') || message.toLowerCase().includes('hi')) {
+                        botMessage.textContent = 'Hello there! How can I help you with HoloLearn today?';
+                    } else if (message.toLowerCase().includes('price') || message.toLowerCase().includes('cost')) {
+                        botMessage.textContent = 'HoloLearn offers both free and premium plans. The free plan includes basic lessons, while premium gives access to all content and features.';
+                    } else if (message.toLowerCase().includes('lesson') || message.toLowerCase().includes('topic')) {
+                        botMessage.textContent = 'We have lessons on various topics including Solar System, Heart Anatomy, Volcanoes, Photosynthesis, and Ancient History. Which one interests you?';
+                    } else {
+                        botMessage.textContent = 'Thanks for your message! Our team will get back to you soon with more information.';
+                    }
+                    
+                    chatMessages.appendChild(botMessage);
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                    
+                    // Show bot message with animation
+                    setTimeout(() => {
+                        botMessage.classList.add('show');
+                    }, 10);
+                }, 1000);
+            }
+        }
+        
+        // Allow sending message with Enter key
+        document.getElementById('chat-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+        
+        // Lesson changing functionality
+        function changeLesson(lesson) {
+            // Update active lesson in sidebar
+            const lessonItems = document.querySelectorAll('.lesson-item');
+            lessonItems.forEach(item => item.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Update content based on selected lesson
+            const contentTitle = document.querySelector('.content-title');
+            const contentBody = document.querySelector('.content-body');
+            
+            switch(lesson) {
+                case 'solar-system':
+                    contentTitle.textContent = 'The Solar System';
+                    contentBody.innerHTML = `
+                        <h3>Overview</h3>
+                        <p>Our solar system consists of the sun and everything bound to it by gravity - the planets, moons, asteroids, comets, and other space objects.</p>
+                        
+                        <h3>Key Components</h3>
+                        <p>The solar system formed about 4.6 billion years ago from the gravitational collapse of a giant interstellar molecular cloud.</p>
+                        
+                        <h3>Interactive Experience</h3>
+                        <p>Use our 3D model to explore each planet, learn about their characteristics, and understand their orbits around the sun.</p>
+                        
+                        <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 20px 0;">
+                            <h3 style="color: var(--primary);">Try It Out</h3>
+                            <p>Click the button below to launch the interactive Solar System experience:</p>
+                            <button class="btn btn-primary" style="margin-top: 15px;">Launch Solar System</button>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'heart':
+                    contentTitle.textContent = 'Heart Anatomy';
+                    contentBody.innerHTML = `
+                        <h3>Overview</h3>
+                        <p>The human heart is a muscular organ that pumps blood throughout the circulatory system.</p>
+                        
+                        <h3>Key Components</h3>
+                        <p>The heart has four chambers: right atrium, right ventricle, left atrium, and left ventricle.</p>
+                        
+                        <h3>Interactive Experience</h3>
+                        <p>Explore the 3D model of the heart to understand its structure, blood flow, and how it functions.</p>
+                        
+                        <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 20px 0;">
+                            <h3 style="color: var(--primary);">Try It Out</h3>
+                            <p>Click the button below to launch the interactive Heart Anatomy experience:</p>
+                            <button class="btn btn-primary" style="margin-top: 15px;">Launch Heart Model</button>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'volcano':
+                    contentTitle.textContent = 'Volcanoes';
+                    contentBody.innerHTML = `
+                        <h3>Overview</h3>
+                        <p>A volcano is a rupture in the crust of a planetary-mass object that allows hot lava, volcanic ash, and gases to escape from a magma chamber below the surface.</p>
+                        
+                        <h3>Key Components</h3>
+                        <p>Volcanoes are typically found where tectonic plates are diverging or converging, and most are found underwater.</p>
+                        
+                        <h3>Interactive Experience</h3>
+                        <p>Use our 3D model to explore the structure of a volcano and understand the eruption process.</p>
+                        
+                        <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 20px 0;">
+                            <h3 style="color: var(--primary);">Try It Out</h3>
+                            <p>Click the button below to launch the interactive Volcano experience:</p>
+                            <button class="btn btn-primary" style="margin-top: 15px;">Launch Volcano Model</button>
+                        </div>
+                    `;
+                    break;
+            }
+        }
+    </script>
+</body>
+</html>

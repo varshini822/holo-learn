@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Settings - Holo-Learn</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="stye.css" />
+</head>
+<body>
+
+<!-- Settings Page -->
+<div id="settings-page" class="settings-page">
+  <header>
+    <div class="container">
+      <div class="navbar">
+        <div class="logo-container">
+          <div class="logo">
+            <i class="fas fa-graduation-cap"></i>
+            <span>Holo-Learn</span>
+          </div>
+        </div>
+        <ul class="nav-menu">
+          <li><a href="dashboard.html">Dashboard</a></li>
+          <li><a href="#">My Courses</a></li>
+          <li><a href="#">Progress</a></li>
+          <li><a href="#">Resources</a></li>
+        </ul>
+        <div class="auth-buttons">
+          <button class="btn btn-secondary" onclick="window.location.href='settings.html'">
+            <i class="fas fa-cog"></i> Settings
+          </button>
+          <button class="btn btn-primary" onclick="window.location.href='index.html'">
+            <i class="fas fa-sign-out-alt"></i> Logout
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container settings-container">
+    <h2>Account Settings</h2>
+    <div class="settings-grid">
+      
+      <!-- Profile Section -->
+      <div class="settings-card card">
+        <h3><i class="fas fa-user"></i> Profile</h3>
+        <form>
+          <label for="name">Full Name</label>
+          <input type="text" id="name" value="Alex Johnson">
+
+          <label for="email">Email</label>
+          <input type="email" id="email" value="alex@example.com">
+
+          <label for="role">Role</label>
+          <select id="role">
+            <option>Student</option>
+            <option>Teacher</option>
+          </select>
+
+          <button type="submit" class="btn btn-primary">Save Changes</button>
+        </form>
+      </div>
+
+      <!-- Preferences Section -->
+      <div class="settings-card card">
+        <h3><i class="fas fa-sliders-h"></i> Preferences</h3>
+        <div class="setting-item">
+          <label for="dark-mode">Dark Mode</label>
+          <label class="toggle-switch">
+            <input type="checkbox" id="dark-mode">
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="setting-item">
+          <label for="notifications">Enable Notifications</label>
+          <label class="toggle-switch">
+            <input type="checkbox" id="notifications" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Security Section -->
+      <div class="settings-card card">
+        <h3><i class="fas fa-lock"></i> Security</h3>
+        <form>
+          <label for="password">New Password</label>
+          <input type="password" id="password" placeholder="Enter new password">
+          <label for="confirm-password">Confirm Password</label>
+          <input type="password" id="confirm-password" placeholder="Confirm new password">
+          <button type="submit" class="btn btn-primary">Update Password</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/three@0.153.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.153.0/examples/js/loaders/GLTFLoader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.153.0/examples/js/controls/OrbitControls.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>

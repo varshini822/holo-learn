@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz - MetaScholar</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- Quiz Page -->
+<div id="quiz-page" class="quiz-page">
+  <header>
+    <div class="container">
+      <div class="navbar">
+        <div class="logo-container">
+          <button class="btn btn-secondary" onclick="window.location.href='concept.html?topic=' + topic" style="margin-right: 15px;">
+            <i class="fas fa-arrow-left"></i>
+          </button>
+          <div class="logo">
+            <i class="fas fa-graduation-cap"></i>
+            <span>Holo-Learn</span>
+          </div>
+        </div>
+        <ul class="nav-menu" id="quiz-nav">
+          <!-- Filled dynamically -->
+        </ul>
+        <div class="auth-buttons">
+          <button class="btn btn-secondary" onclick="window.location.href='settings.html'">
+            <i class="fas fa-cog"></i> Settings
+          </button>
+          <button class="btn btn-primary" onclick="logout()">
+            <i class="fas fa-sign-out-alt"></i> Logout
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container quiz-container">
+    <h2 id="quiz-title">Quiz</h2>
+    <div id="quiz-questions" class="quiz-questions card">
+      <!-- Questions will load here -->
+    </div>
+    <div class="quiz-actions">
+      <button class="btn btn-primary" onclick="submitQuiz()">Submit Quiz</button>
+    </div>
+    <div id="quiz-result" class="quiz-result card" style="display:none;"></div>
+  </div>
+</div>
+
+<script>
+  // Topic from URL
+  const params = new URLSearchParams(window.location.search);
+  const topic = params.get("topic") || "cell";
+
+  // Quiz Data
+  const quizzes = {
+    "cell": {
+      title: "Cell Structure Quiz",
+      questions: [
+        { q: "Which organelle is the powerhouse of the cell?", options: ["Nucleus", "Mitochondria", "Ribosome", "Golgi Apparatus"], answer: 1 },
+        { q: "What structure controls what enters and exits the cell?", options: ["Cytoplasm", "Cell Membrane", "Nucleus", "Chloroplast"], answer: 1 }
+      ]
+    },
+    "dna": {
+      title: "DNA & Genetics Quiz",
+      questions: [
+        { q: "DNA stands for?", options: ["Deoxyribonucleic Acid", "Dicarbo Nucleic Acid", "Double Helix Acid", "None"], answer: 0 },
+        { q: "The shape of DNA is?", options: ["Double Helix", "Single Strand", "Triple Helix", "Ladder"], answer: 0 }
+      ]
+    },
+    "human-brain": {
+      title: "Human Brain Quiz",
+      questions: [
+        { q: "Which part of the brain controls balance?", options: ["Cerebrum", "Cerebellum", "Medulla", "Hypothalamus"], answer: 1 },
+        { q: "Which lobe processes visual information?", options: ["Frontal", "Parietal", "Temporal", "Occipital"], answer: 3 }
+      ]
+    },
+    "ecosystem": {
+      title: "Ecosystems Quiz",
+      questions: [
+        { q: "What is a group of ecosystems with similar climate called?", options: ["Community", "Biome", "Population", "Biosphere"], answer: 1 },
+        { q: "Plants are considered as?", options: ["Consumers", "Producers", "Decomposers", "Carnivores"], answer: 1 }
+      ]
+    },
+    "evolution": {
+      title: "Evolution Quiz",
+      questions: [
+        { q: "Who proposed the theory of natural selection?", options: ["Newton", "Darwin", "Einstein", "Lamarck"], answer: 1 },
+        { q: "Fossils are evidence of?", options: ["Evolution", "Weathering", "Pollution", "Photosynthesis"], answer: 0 }
+      ]
+    },
+    "human-heart": {
+      title: "Human Heart Quiz",
+      questions: [
+        { q: "How many chambers are in the human heart?", options: ["2", "3", "4", "5"], answer: 2 },
+        { q: "Which blood vessels carry blood away from the heart?", options: ["Veins", "Arteries", "Capillaries", "Valves"], answer: 1 }
+      ]
+    }
+  };
+
+  const quiz = quizzes[topic];
+  document.getElementById("quiz-title").innerText = quiz.title;
+
+  // Build Navbar dynamically
+  document.getElementById("quiz-nav").innerHTML = `
+    <li><a href="concept.html?topic=${topic}">Concept</a></li>
+    <li><a href="#" class="active">Quiz</a></li>
+  `;
+
+  // Render Questions
+  const quizContainer = document.getElementById("quiz-questions");
+  quiz.questions.forEach((q, index) => {
+    const questionBlock = document.createElement("div");
+    questionBlock.className = "quiz-question";
+    questionBlock.innerHTML = `
+      <h4>Q${index + 1}. ${q.q}</h4>
+      ${q.options.map((opt, i) => `
+        <label>
+          <input type="radio" name="q${index}" value="${i}">
+          ${opt}
+        </label><br>
+      `).join("")}
+    `;
+    quizContainer.appendChild(questionBlock);
+  });
+
+  // Submit Function
+  function submitQuiz() {
+    let score = 0;
+    quiz.questions.forEach((q, index) => {
+      const selected = document.querySelector(`input[name="q${index}"]:checked`);
+      if (selected && parseInt(selected.value) === q.answer) {
+        score++;
+      }
+    });
+
+    const resultBox = document.getElementById("quiz-result");
+    resultBox.style.display = "block";
+    resultBox.innerHTML = `<h3>Result</h3><p>You scored ${score} out of ${quiz.questions.length}.</p>`;
+  }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.153.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.153.0/examples/js/loaders/GLTFLoader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.153.0/examples/js/controls/OrbitControls.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>

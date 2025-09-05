@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard - Holo-Learn</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- Dashboard Page -->
+<div id="dashboard" class="dashboard">
+  <header>
+    <div class="container">
+      <div class="navbar">
+        <div class="logo-container">
+          <div class="logo">
+            <i class="fas fa-graduation-cap"></i>
+            <span>Holo-Learn</span>
+          </div>
+        </div>
+        <ul class="nav-menu"></ul>
+        <div class="auth-buttons">
+          <button class="btn btn-secondary" onclick="window.location.href='settings.html'">
+            <i class="fas fa-cog"></i> Settings
+          </button>
+          <button class="btn btn-primary" onclick="window.location.href='index.html'">
+            <i class="fas fa-sign-out-alt"></i> Logout
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container dashboard-container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <h3 class="sidebar-title">LIST OF CONCEPTS</h3>
+
+      <h3 class="sidebar-title">My Progress</h3>
+      <div class="progress-card card">
+        <h4>Overall Completion</h4>
+        <div class="progress-bar">
+          <div class="progress" style="width: 65%"></div>
+        </div>
+        <p>65% Complete</p>
+      </div>
+
+      <div class="theme-toggle">
+        <label class="toggle-switch">
+          <input type="checkbox" id="theme-toggle">
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="profile-summary card">
+        <img src="dp.jpeg" alt="Profile" class="profile-pic">
+        <div>
+          <h4>Alex Johnson</h4>
+          <p>Student</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dashboard Content -->
+    <div class="dashboard-content">
+      <div class="dashboard-header">
+        <h2>Biology Concepts</h2>
+        <div class="search-bar">
+          <input 
+            type="text" 
+            placeholder="Search concepts..." 
+            style="padding: 10px 15px; border-radius: 30px; border: 1px solid var(--light-gray); width: 250px;">
+        </div>
+      </div>
+
+      <!-- Concept Grid -->
+      <div class="concept-grid">
+        <a class="concept-card" href="concept.html?topic=cell">
+          <div class="concept-icon"><i class="fas fa-microscope"></i></div>
+          <h3>Cell Structure</h3>
+          <p>Explore the building blocks of life with interactive lessons on animal and plant cells.</p>
+          <div class="progress-bar"><div class="progress" style="width: 80%"></div></div>
+          <p>80% Complete</p>
+        </a>
+
+        <a class="concept-card" href="concept.html?topic=dna">
+          <div class="concept-icon"><i class="fas fa-dna"></i></div>
+          <h3>DNA & Genetics</h3>
+          <p>Unravel the mysteries of genetics with interactive DNA lessons.</p>
+          <div class="progress-bar"><div class="progress" style="width: 45%"></div></div>
+          <p>45% Complete</p>
+        </a>
+
+        <a class="concept-card" href="concept.html?topic=human-brain">
+          <div class="concept-icon"><i class="fas fa-brain"></i></div>
+          <h3>Human Brain</h3>
+          <p>Discover the complexities of the human brain with detailed video lessons.</p>
+          <div class="progress-bar"><div class="progress" style="width: 30%"></div></div>
+          <p>30% Complete</p>
+        </a>
+
+        <a class="concept-card" href="concept.html?topic=ecosystem">
+          <div class="concept-icon"><i class="fas fa-leaf"></i></div>
+          <h3>Ecosystems</h3>
+          <p>Understand interactions between organisms in ecosystems.</p>
+          <div class="progress-bar"><div class="progress" style="width: 20%"></div></div>
+          <p>20% Complete</p>
+        </a>
+
+        <a class="concept-card" href="concept.html?topic=evolution">
+          <div class="concept-icon"><i class="fas fa-fish"></i></div>
+          <h3>Evolution</h3>
+          <p>Trace the path of evolution through timelines and comparisons.</p>
+          <div class="progress-bar"><div class="progress" style="width: 10%"></div></div>
+          <p>10% Complete</p>
+        </a>
+
+        <a class="concept-card" href="concept.html?topic=solar-system">
+          <div class="concept-icon"><i class="fa-solid fa-globe"></i></div>
+          <h3>Solar System</h3>
+          <p>A collection of planets, moons, and celestial bodies orbiting the Sun.</p>
+          <div class="progress-bar"><div class="progress" style="width: 85%"></div></div>
+          <p>85% Complete</p>
+        </a>
+
+        <a class="concept-card" href="concept.html?topic=human-heart">
+          <div class="concept-icon"><i class="fa-solid fa-heart"></i></div>
+          <h3>Human Heart</h3>
+          <p>The organ that pumps blood throughout the body via the circulatory system.</p>
+          <div class="progress-bar"><div class="progress" style="width: 73%"></div></div>
+          <p>73% Complete</p>
+        </a>
+
+        <a class="concept-card" href="concept.html?topic=periodic-table">
+          <div class="concept-icon"><i class="fa-solid fa-flask"></i></div>
+          <h3>Periodic Table</h3>
+          <p>A chart organizing elements by their chemical properties and atomic structure.</p>
+          <div class="progress-bar"><div class="progress" style="width: 69%"></div></div>
+          <p>69% Complete</p>
+        </a>
+
+        <a class="concept-card" href="concept.html?topic=electric-circuits">
+          <div class="concept-icon"><i class="fa-solid fa-bolt"></i></div>
+          <h3>Electric Circuits</h3>
+          <p>Pathways that allow electric current to flow through resistors and wires.</p>
+          <div class="progress-bar"><div class="progress" style="width: 73%"></div></div>
+          <p>73% Complete</p>
+        </a>
+        
+        <a class="concept-card" href="concept.html?topic=photosynthesis">
+          <div class="concept-icon"><i class="fa-solid fa-seedling"></i></div>
+          <h3>Photosynthesis</h3>
+          <p>The process by which plants convert sunlight, water, and CO₂ into food and oxygen.</p>
+          <div class="progress-bar"><div class="progress" style="width: 39%"></div></div>
+          <p>39% Complete</p>
+        </a>
+
+        <a class="concept-card" href="concept.html?topic=ai-basics">
+          <div class="concept-icon"><i class="fa-solid fa-brain"></i></div>
+          <h3>Artificial Intelligence Basics</h3>
+          <p>Computer systems designed to mimic human learning and decision-making.</p>
+          <div class="progress-bar"><div class="progress" style="width: 95%"></div></div>
+          <p>95% Complete</p>
+        </a>
+
+        <a class="concept-card" href="concept.html?topic=quantum-computing">
+          <div class="concept-icon"><i class="fa-solid fa-atom"></i></div>
+          <h3>Quantum Computing</h3>
+          <p>Computing technology using qubits and quantum states for complex calculations.</p>
+          <div class="progress-bar"><div class="progress" style="width: 85%"></div></div>
+          <p>85% Complete</p>
+        </a>
+        
+        <a class="concept-card" href="concept.html?topic=climate-change">
+          <div class="concept-icon"><i class="fa-solid fa-earth-americas"></i></div>
+          <h3>Climate Change & Environment</h3>
+          <p>Long-term shifts in Earth’s climate caused by natural and human activities.</p>
+          <div class="progress-bar"><div class="progress" style="width: 65%"></div></div>
+          <p>65% Complete</p>
+        </a>
+
+        <a class="concept-card" href="concept.html?topic=math-graphs">
+          <div class="concept-icon"><i class="fa-solid fa-chart-line"></i></div>
+          <h3>Mathematical Graphs</h3>
+          <p>Visual representations of equations, functions, and data relationships.</p>
+          <div class="progress-bar"><div class="progress" style="width: 55%"></div></div>
+          <p>55% Complete</p>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

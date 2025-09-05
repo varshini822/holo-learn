@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Holo-Learn</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="stye.css">
+</head>
+<body>
+  <!-- Animated Background -->
+  <div class="animated-bg">
+    <div class="shape"></div>
+    <div class="shape"></div>
+    <div class="shape"></div>
+  </div>
+
+  <!-- Landing Page -->
+  <div id="main-page">
+    <!-- Header with Navigation -->
+    <header>
+      <div class="container">
+        <div class="navbar">
+          <div class="logo-container">
+            <div class="logo">
+              <i class="fas fa-graduation-cap"></i>
+              <span>Holo-Learn</span>
+            </div>
+          </div>
+          <ul class="nav-menu">
+            <li><a href="#home" class="active">Home</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+          <div class="auth-buttons">
+            <button class="btn btn-secondary" onclick="window.location.href='auth.html'">Login</button>
+            <button class="btn btn-primary" onclick="window.location.href='auth.html'">Sign Up</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+      <div class="container">
+        <h1>Learn with Immersive Mixed Reality Experiences</h1>
+        <p>Holo-Learn brings interactive 3D learning to your browser without any special hardware.</p>
+        <div class="hero-buttons">
+          <button class="btn btn-primary" onclick="window.location.href='auth.html'">
+            <i class="fab fa-google"></i> Continue with Google
+          </button>
+          <button class="btn btn-secondary" onclick="window.location.href='auth.html'">
+            <i class="fas fa-phone"></i> Continue with Phone
+          </button>
+        </div>
+        <div class="hero-features">
+          <div class="hero-feature glass-card">
+            <i class="fas fa-globe"></i>
+            <h3>Web-Based MR Experience</h3>
+            <p>Runs on any laptop and browser without special hardware</p>
+          </div>
+          <div class="hero-feature glass-card">
+            <i class="fas fa-robot"></i>
+            <h3>AI-Powered Teaching</h3>
+            <p>Interactive explanations and quizzes powered by AI</p>
+          </div>
+          <div class="hero-feature glass-card">
+            <i class="fas fa-gem"></i>
+            <h3>Rich 3D Visualizations</h3>
+            <p>Explore complex concepts with detailed 3D models</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section features" id="features">
+      <div class="container">
+        <h2 class="section-title">What We Offer</h2>
+        <p class="section-subtitle">Holo-Learn provides an immersive learning experience with cutting-edge technology</p>
+        <div class="features-grid">
+          <div class="feature-card card">
+            <div class="feature-icon"><i class="fas fa-cube"></i></div>
+            <h3>Interactive 3D Models</h3>
+            <p>Manipulate and explore detailed 3D models to understand complex structures</p>
+          </div>
+          <div class="feature-card card">
+            <div class="feature-icon"><i class="fas fa-comments"></i></div>
+            <h3>AI Chat Assistance</h3>
+            <p>Get instant explanations and answers to your questions from our AI tutor</p>
+          </div>
+          <div class="feature-card card">
+            <div class="feature-icon"><i class="fas fa-brain"></i></div>
+            <h3>Adaptive Learning</h3>
+            <p>Our system adjusts to your learning style and pace for optimal results</p>
+          </div>
+          <div class="feature-card card">
+            <div class="feature-icon"><i class="fas fa-trophy"></i></div>
+            <h3>Gamified Learning</h3>
+            <p>Earn points, badges, and rewards as you progress through lessons</p>
+          </div>
+          <div class="feature-card card">
+            <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+            <h3>Progress Tracking</h3>
+            <p>Monitor your learning journey with detailed analytics and insights</p>
+          </div>
+          <div class="feature-card card">
+            <div class="feature-icon"><i class="fas fa-users"></i></div>
+            <h3>Collaborative Learning</h3>
+            <p>Study with friends and classmates in shared virtual spaces</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="section how-it-works" id="how-it-works">
+      <div class="container">
+        <h2 class="section-title">How It Works</h2>
+        <p class="section-subtitle">Getting started with Holo-Learn is simple and straightforward</p>
+        <div class="process-steps">
+          <div class="step card">
+            <div class="step-number">1</div>
+            <h3>Sign Up</h3>
+            <p>Create your account with email or social login</p>
+          </div>
+          <div class="step card">
+            <div class="step-number">2</div>
+            <h3>Choose a Subject</h3>
+            <p>Select from our library of interactive lessons</p>
+          </div>
+          <div class="step card">
+            <div class="step-number">3</div>
+            <h3>Learn Interactively</h3>
+            <p>Explore 3D models and chat with AI assistant</p>
+          </div>
+          <div class="step card">
+            <div class="step-number">4</div>
+            <h3>Test Your Knowledge</h3>
+            <p>Complete quizzes to reinforce your learning</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section contact" id="contact">
+      <div class="container">
+        <h2 class="section-title">Get In Touch</h2>
+        <p class="section-subtitle">Have questions or want to learn more? Reach out to our team</p>
+        <div class="contact-grid">
+          <div class="contact-info">
+            <div class="contact-detail card">
+              <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+              <div><h3>Email Us</h3><p>info.hololearn@gmail.com</p></div>
+            </div>
+            <div class="contact-detail card">
+              <div class="contact-icon"><i class="fas fa-phone"></i></div>
+              <div><h3>Call Us</h3><p>+91 63029 58908</p></div>
+            </div>
+          </div>
+          <div class="contact-form card">
+            <h3>Send a Message</h3>
+            <form id="contactForm">
+              <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" placeholder="Enter your name" required>
+              </div>
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="Enter your email" required>
+              </div>
+              <div class="form-group">
+                <label for="subject">Subject</label>
+                <input type="text" id="subject" placeholder="What is this regarding?" required>
+              </div>
+              <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" rows="5" placeholder="Type your message here..." required></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3>Holo-Learn</h3>
+            <p>Transforming education through immersive mixed reality experiences powered by AI.</p>
+          </div>
+          <div class="footer-section">
+            <h3>Quick Links</h3>
+            <ul class="footer-links">
+              <li><a href="#home">Home</a></li>
+              <li><a href="#features">Features</a></li>
+              <li><a href="#how-it-works">How It Works</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            
+          </div>
+          <div class="footer-section">
+            <h3>Connect With Us</h3>
+            <div class="social-links">
+              <a href="#" class="btn-social"><i class="fab fa-facebook-f"></i></a>
+              <a href="#" class="btn-social"><i class="fab fa-twitter"></i></a>
+              <a href="https://www.instagram.com/hololearn.tech?igsh=djlnZHh1cWwzbDhs" class="btn-social"><i class="fab fa-instagram"></i></a>
+              <a href="#" class="btn-social"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2025 Holo-Learn. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+<script src="https://cdn.jsdelivr.net/npm/three@0.153.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.153.0/examples/js/loaders/GLTFLoader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.153.0/examples/js/controls/OrbitControls.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

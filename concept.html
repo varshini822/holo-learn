@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Concept - Holo-Learn</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- Concept Page -->
+<div id="concept-page" class="concept-page">
+  <header>
+    <div class="container">
+      <div class="navbar">
+        <div class="logo-container">
+          <button class="btn btn-secondary" onclick="window.location.href='dashboard.html'" style="margin-right: 15px;">
+            <i class="fas fa-arrow-left"></i>
+          </button>
+          <div class="logo">
+            <i class="fas fa-graduation-cap"></i>
+            <span>Holo-Learn</span>
+          </div>
+        </div>
+        <ul class="nav-menu" id="concept-nav">
+          <!-- Filled dynamically -->
+        </ul>
+        <div class="auth-buttons">
+          <button class="btn btn-secondary" onclick="window.location.href='settings.html'">
+            <i class="fas fa-cog"></i> Settings
+          </button>
+          <button class="btn btn-primary" onclick="logout()">
+            <i class="fas fa-sign-out-alt"></i> Logout
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container concept-container">
+    <!-- Video Player -->
+    <div class="video-player card">
+      <video id="lesson-video" controls width="100%" height="auto">
+        <source src="" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+    
+    <!-- AI Tutor Chat -->
+    <div class="chat-container card">
+      <h3 id="chat-title">AI Tutor</h3>
+      <div class="chat-messages">
+        <div class="message bot" id="chat-intro">
+          Hi! I'm your tutor. What would you like to know?
+        </div>
+      </div>
+      <div class="chat-input">
+        <input type="text" placeholder="Ask a question..." id="chat-input-field">
+        <button class="btn btn-primary"><i class="fas fa-paper-plane"></i></button>
+      </div>
+    </div>
+    
+    <!-- Actions -->
+    <div class="action-buttons">
+      <button class="btn btn-primary"  onclick="location.href='dashboard.html'">
+        <i class="fas fa-book"></i> View Study Materials
+      </button>
+      <button class="btn btn-secondary" id="quiz-btn">
+        <i class="fas fa-question-circle"></i> Take a Quiz
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Main Script -->
+<script>
+  // ==== Concept Data with Corrected Video Paths ====
+  const concepts = {
+    "cell": {
+      title: "Cell Structure",
+      description: "Learn the basics of animal and plant cells.",
+      icon: "fas fa-microscope",
+      video: "videos/Cellstructure.mp4"
+    },
+    "dna": {
+      title: "DNA & Genetics",
+      description: "Understand DNA structure and genetics.",
+      icon: "fas fa-dna",
+      video: "videos/DNAGenetics.mp4"
+    },
+    "human-brain": {
+      title: "Human Brain",
+      description: "Explore the brain and its functional lobes.",
+      icon: "fas fa-brain",
+      video: "videos/Brain.mp4"
+    },
+    "ecosystem": {
+      title: "Ecosystems",
+      description: "Understand how organisms interact in ecosystems.",
+      icon: "fas fa-leaf",
+      video: "videos/Ecosystems.mp4"
+    },
+    "evolution": {
+      title: "Evolution",
+      description: "Trace the path of evolution.",
+      icon: "fas fa-fish",
+      video: "videos/Evolution.mp4"
+    },
+    "solar-system": {
+      title: "Solar System",
+      description: "Planets, moons, and celestial bodies orbiting the Sun.",
+      icon: "fas fa-globe",
+      video: "videos/Solarsystem.mp4"
+    },
+    "human-heart": {
+      title: "Human Heart",
+      description: "The organ that pumps blood throughout the body.",
+      icon: "fas fa-heart",
+      video: "videos/HumanHeart.mp4"
+    },
+    "periodic-table": {
+      title: "Periodic Table",
+      description: "Chart of chemical elements by their properties.",
+      icon: "fas fa-flask",
+      video: "videos/PeriodicTable.mp4"
+    },
+    "electric-circuits": {
+      title: "Electric Circuits",
+      description: "Learn how current flows in a circuit.",
+      icon: "fas fa-bolt",
+      video: "videos/ElectricCircuits.mp4"
+    },
+    "photosynthesis": {
+      title: "Photosynthesis",
+      description: "How plants convert sunlight into energy.",
+      icon: "fas fa-seedling",
+      video: "videos/Photosynthesis.mp4"
+    },
+    "ai-basics": {
+      title: "Artificial Intelligence Basics",
+      description: "Intro to AI, ML, and decision-making.",
+      icon: "fas fa-brain",
+      video: "videos/ArtificialIntelligence.mp4"
+    },
+    "quantum-computing": {
+      title: "Quantum Computing",
+      description: "Learn how qubits revolutionize computing.",
+      icon: "fas fa-atom",
+      video: "videos/QuantumComputing.mp4"
+    },
+    "climate-change": {
+      title: "Climate Change & Environment",
+      description: "Explore climate shifts and environmental science.",
+      icon: "fas fa-earth-americas",
+      video: "videos/ClimateChange.mp4"
+    },
+    "math-graphs": {
+      title: "Mathematical Graphs",
+      description: "Visualize equations, functions, and data.",
+      icon: "fas fa-chart-line",
+      video: "videos/MathGraphs.mp4"
+    }
+  };
+
+  // ==== Get Topic from URL ====
+  const params = new URLSearchParams(window.location.search);
+  const topic = params.get("topic") || "cell";
+  const concept = concepts[topic];
+
+  // ==== Update Navigation ====
+  document.getElementById("concept-nav").innerHTML = `
+    <li><a href="#" class="active">${concept.title}</a></li>
+    <li><a href="#">Video Lesson</a></li>
+    <li><a href="#">AI Tutor</a></li>
+    <li><a href="quiz.html?topic=${topic}">Quiz</a></li>
+  `;
+
+  // ==== Load Video Dynamically ====
+  const videoPlayer = document.getElementById("lesson-video");
+  videoPlayer.querySelector("source").src = concept.video;
+  videoPlayer.load();
+
+  // ==== Update AI Tutor ====
+  document.getElementById("chat-title").innerText = `AI Tutor - ${concept.title}`;
+  document.getElementById("chat-intro").innerText =
+    `Hi! I'm your tutor. What would you like to know about ${concept.title}?`;
+
+  // ==== Quiz Button ====
+  document.getElementById("quiz-btn").addEventListener("click", () => {
+    window.location.href = `quiz.html?topic=${topic}`;
+  });
+
+  // ==== Logout ====
+  function logout() {
+    alert("You have been logged out!");
+    window.location.href = "index.html";
+  }
+</script>
+
+</body>
+</html>
